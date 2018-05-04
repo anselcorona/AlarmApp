@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".DetailActivity"
-    android:background="##dce5e0">
+    android:background="#dce5e0">
 
     <LinearLayout
         android:id="@+id/detail_activity_form"
@@ -40,6 +40,8 @@
                 android:id="@+id/detail_activity_hour"
                 style="@style/timeEditText"
                 android:gravity="end"
+                android:inputType="number"
+                android:maxLength="2"
                 android:text="@string/HOUR" />
 
             <TextView
@@ -50,6 +52,8 @@
             <EditText
                 android:id="@+id/detail_activity_minute"
                 style="@style/timeEditText"
+                android:inputType="number"
+                android:maxLength="2"
                 android:text="@string/MINUTE" />
         </LinearLayout>
 
@@ -57,7 +61,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <TextView
                 style="@style/name"
                 android:gravity="end"
@@ -66,10 +69,20 @@
             <EditText
                 android:id="@+id/detail_activity_name"
                 style="@style/nameEditText"
-                android:hint="@string/example_name" />
+                android:singleLine="true"
+                android:hint="@string/example_name"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:textAllCaps="false" />
         </LinearLayout>
 
-
+        <View
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/buttonBar"
+            android:background="@android:color/darker_gray"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,19 +123,21 @@
                 style="@style/days_button"
                 android:text="@string/domingo" />
         </LinearLayout>
+        <View
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/buttonBar"
+            android:background="@android:color/darker_gray"
+            />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@id/buttonBar"
-        android:background="@android:color/darker_gray"
-        />
+
+
     <LinearLayout
         android:id="@+id/buttonBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="bottom|end">
+        android:layout_alignParentBottom="true">
 
         <View
             android:layout_width="0dp"

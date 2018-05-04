@@ -1,11 +1,12 @@
 package com.example.acorona.alarmapp;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.BoringLayout;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,7 +14,6 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -42,7 +42,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     Date time;
     String name;
     String amorpm;
-    String time_string;
     Boolean AMoPM;
     Intent returnIntent;
 
@@ -70,6 +69,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         cancel = findViewById(R.id.detail_activity_cancel);
         save = findViewById(R.id.detail_activity_save);
 
+
         AM.setOnClickListener(this);
         PM.setOnClickListener(this);
         monday.setOnClickListener(this);
@@ -91,9 +91,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
 
         Name.setText(name);
-        Hour.setText(a.Date2String(time,"HH"));
+        Hour.setText(a.Date2String(time,"hh"));
         Minute.setText(a.Date2String(time, "mm"));
         amorpm = a.Date2String(time, "aa");
+        if(amorpm.equalsIgnoreCase("am")){
+            AMoPM=false;
+        }else{
+            AMoPM=true;
+        }
 
         setcolorday(monday, 0);
         setcolorday(tuesday, 1);
@@ -103,23 +108,25 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         setcolorday(saturday, 5);
         setcolorday(sunday, 6);
 
-        AM.setTextColor(amorpm.charAt(0)=='a'? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
-        PM.setTextColor(amorpm.charAt(0)=='p'? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
+        AM.setTextColor(!AMoPM? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
+        PM.setTextColor(AMoPM? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
     }
 
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View view){
         int id = view.getId();
 
         switch (id) {
             case R.id.detail_activity_AM:
                 AMoPM=false;
-                AM.setTextColor(amorpm.charAt(0)=='a'? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
+                AM.setTextColor(!AMoPM? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
+                PM.setTextColor(AMoPM? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
                 break;
             case R.id.detail_activity_PM:
                 AMoPM=true;
-                PM.setTextColor(amorpm.charAt(0)=='p'? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
+                AM.setTextColor(!AMoPM? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
+                PM.setTextColor(AMoPM? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
                 break;
             case R.id.detail_activity_monday:
                 setday(0);
@@ -155,29 +162,51 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.detail_activity_save:
-                String name = Name.getText().toString();
-                int h = Integer.parseInt(Hour.getText().toString());
-                int m = Integer.parseInt(Minute.getText().toString());
-                time_string = getTime_string(h, m, AMoPM?"am":"pm");
-                try {
-                    Date date = new SimpleDateFormat("hh:ss aa").parse(time_string);
-                    result = new Alarma(name, date, days, true);
+                if((!Hour.getText().toString().isEmpty()&&!Minute.getText().toString().isEmpty())
+                        && (Integer.parseInt(Hour.getText().toString()) >0 && Integer.parseInt(Hour.getText().toString())<13)
+                        && (Integer.parseInt(Minute.getText().toString()) >=0 && Integer.parseInt(Minute.getText().toString())<60)){
+                    String name = Name.getText().toString();
+                    if(name.isEmpty()){
+                        name = "untitled";
+                    }
+                    int h = Integer.parseInt(Hour.getText().toString());
+                    int m = Integer.parseInt(Minute.getText().toString());
+                    Date date = getDate(h, m, AMoPM?"pm":"am");
+                    result = new Alarma(name, date, days);
                     Intent returnIntent = new Intent();
-                    returnIntent.putExtra("result",result);
+                    returnIntent.putExtra(ALARM_KEY,result);
                     setResult(Activity.RESULT_OK,returnIntent);
                     finish();
-                } catch (ParseException e) {
-                    Toast.makeText(this,"Error en conversion de fecha", Toast.LENGTH_LONG).show();
                 }
+                else{
+                    if(Hour.getText().toString().isEmpty()){
+                        Hour.setError("No puede estar vacio");
+                    }
+                    if(!(Integer.parseInt(Hour.getText().toString()) >0 && Integer.parseInt(Hour.getText().toString())<13)){
+                        Hour.setError("Valor inválido");
+                    }
+                    if(Minute.getText().toString().isEmpty()){
+                        Minute.setError("No puede estar vacio");
+                    }
+                    if(!(Integer.parseInt(Minute.getText().toString()) >=0 && Integer.parseInt(Minute.getText().toString())<60)){
+                        Minute.setError("Valor inválido");
+                    }
+                }
+
                 break;
         }
     }
 
-    private String getTime_string(int hour, int minute, String amorpm){
+    private Date getDate(int hour, int minute, String amorpm){
         String resultingstring = String.valueOf(hour) + ":" + String.valueOf(minute) + " " + amorpm;
-        return resultingstring;
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("hh:mm aa").parse(resultingstring);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
-
     private void setday(int day){
         if(days.get(day)){
             days.set(day,false);

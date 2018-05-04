@@ -47,7 +47,7 @@
         <item name="android:paddingEnd">2dp</item>
         <item name="android:textSize">30sp</item>
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">0.7</item>
+        <item name="android:layout_weight">0.77</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="name">
@@ -56,7 +56,7 @@
         <item name="android:paddingEnd">2dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">0.3</item>
+        <item name="android:layout_weight">0.23</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="days_button">
@@ -69,12 +69,13 @@
     </style>
     <style name="bottom_buttons">
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingBottom">15dp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">0.5</item>
+        <item name="android:layout_weight">01</item>
     </style>
 
 </resources>

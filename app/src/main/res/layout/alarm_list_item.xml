@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
     <LinearLayout
         android:baselineAligned="false"
         android:layout_width="match_parent"
@@ -20,38 +20,37 @@
                 android:id="@+id/list_item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:textColor="@android:color/black"
+                android:textSize="35sp"
                 tools:text="ALARM" />
 
             <TextView
                 android:id="@+id/list_item_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textAlignment="textEnd"
+                android:textColor="@color/NEON_GREEN"
+                android:textSize="36sp"
                 tools:text="09:00PM" />
 
             <TextView
                 android:id="@+id/list_item_days"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAlignment="viewEnd"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 tools:text="Lun, Mar, Mie, Jue, Vie" />
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="0.3"
-            android:gravity="center">
-
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/list_item_active_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:scaleX="2"
-                android:scaleY="2" />
-        </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/GRAY"
+        android:paddingEnd="100dp"
+        android:paddingStart="100dp" />
 
 </LinearLayout>

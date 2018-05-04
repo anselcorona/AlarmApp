@@ -14,15 +14,13 @@ public class Alarma implements Parcelable {
     private String name;
     private Date time;
     private ArrayList<Boolean> days;
-    private Boolean active;
 
 
 
-    public Alarma(String name, Date time, ArrayList<Boolean> days, Boolean active) {
+    public Alarma(String name, Date time, ArrayList<Boolean> days) {
         this.name = name;
         this.time = time;
         this.days = days;
-        this.active = active;
     }
 
     public Date getTime() {
@@ -39,7 +37,7 @@ public class Alarma implements Parcelable {
 
 
     public String getTimeString() {
-        String time_string = Date2String(this.time, "HH:mm");
+        String time_string = Date2String(this.time, "hh:mm aa");
         return time_string;
     }
 
@@ -121,9 +119,6 @@ public class Alarma implements Parcelable {
         return result;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -137,9 +132,6 @@ public class Alarma implements Parcelable {
         this.days = days;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
 
     protected Alarma(Parcel in) {
         name = in.readString();
@@ -151,8 +143,6 @@ public class Alarma implements Parcelable {
         } else {
             days = null;
         }
-        byte activeVal = in.readByte();
-        active = activeVal == 0x02 ? null : activeVal != 0x00;
     }
 
     @Override
@@ -169,11 +159,6 @@ public class Alarma implements Parcelable {
         } else {
             dest.writeByte((byte) (0x01));
             dest.writeList(days);
-        }
-        if (active == null) {
-            dest.writeByte((byte) (0x02));
-        } else {
-            dest.writeByte((byte) (active ? 0x01 : 0x00));
         }
     }
 

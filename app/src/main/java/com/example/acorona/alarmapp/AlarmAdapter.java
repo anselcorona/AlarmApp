@@ -34,20 +34,19 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Alarma alarma = alarmaList.get(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder,  int position) {
+        final Alarma[] alarma = {alarmaList.get(position)};
+        final int p = position;
+        holder.daysTextView.setText(alarma[0].getDaysString());
+        holder.timeTextView.setText(alarma[0].getTimeString());
+        holder.nameTextView.setText(alarma[0].getName());
 
-        holder.daysTextView.setText(alarma.getDaysString());
-        holder.timeTextView.setText(alarma.getTimeString());
-        holder.nameTextView.setText(alarma.getName());
-        holder.switchCompat.setChecked(alarma.getActive());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onAlarmClickListener.onAlarmClick(alarma);
+                onAlarmClickListener.onAlarmClick(alarma[0]);
             }
         });
-
 
     }
 
@@ -67,13 +66,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
         public TextView timeTextView;
         public TextView daysTextView;
 
-        public SwitchCompat switchCompat;
         public ViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.list_item_name);
             timeTextView = itemView.findViewById(R.id.list_item_time);
             daysTextView = itemView.findViewById(R.id.list_item_days);
-            switchCompat = itemView.findViewById(R.id.list_item_active_switch);
         }
     }
 }
