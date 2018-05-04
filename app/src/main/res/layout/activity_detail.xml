@@ -42,7 +42,8 @@
                 android:gravity="end"
                 android:inputType="number"
                 android:maxLength="2"
-                android:text="@string/HOUR" />
+                android:text="@string/HOUR"
+                tools:ignore="LabelFor" />
 
             <TextView
                 style="@style/colon"
@@ -54,7 +55,8 @@
                 style="@style/timeEditText"
                 android:inputType="number"
                 android:maxLength="2"
-                android:text="@string/MINUTE" />
+                android:text="@string/MINUTE"
+                tools:ignore="LabelFor" />
         </LinearLayout>
 
         <LinearLayout
@@ -73,14 +75,14 @@
                 android:hint="@string/example_name"
                 android:maxLength="20"
                 android:maxLines="1"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                tools:ignore="TextFields" />
         </LinearLayout>
 
         <View
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_above="@id/buttonBar"
             android:background="@android:color/darker_gray"
             />
 
@@ -127,7 +129,6 @@
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_above="@id/buttonBar"
             android:background="@android:color/darker_gray"
             />
     </LinearLayout>

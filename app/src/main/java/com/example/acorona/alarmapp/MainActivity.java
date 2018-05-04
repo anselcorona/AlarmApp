@@ -1,9 +1,7 @@
 package com.example.acorona.alarmapp;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        ArrayList<Boolean> days = new ArrayList<Boolean>();
+        ArrayList<Boolean> days = new ArrayList<>();
         days.add(true);
         days.add(true);
         days.add(true);

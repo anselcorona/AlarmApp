@@ -3,7 +3,6 @@ package com.example.acorona.alarmapp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
         this.onAlarmClickListener = onAlarmClickListener;
     }
 
-    public AlarmAdapter(Context context, ArrayList<Alarma> alarmaList){
+    AlarmAdapter(Context context, ArrayList<Alarma> alarmaList){
         this.context = context;
         this.alarmaList = alarmaList;
     }
@@ -36,7 +35,6 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder,  int position) {
         final Alarma[] alarma = {alarmaList.get(position)};
-        final int p = position;
         holder.daysTextView.setText(alarma[0].getDaysString());
         holder.timeTextView.setText(alarma[0].getTimeString());
         holder.nameTextView.setText(alarma[0].getName());
@@ -62,11 +60,11 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView nameTextView;
-        public TextView timeTextView;
-        public TextView daysTextView;
+        private TextView nameTextView;
+        private TextView timeTextView;
+        private TextView daysTextView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.list_item_name);
             timeTextView = itemView.findViewById(R.id.list_item_time);

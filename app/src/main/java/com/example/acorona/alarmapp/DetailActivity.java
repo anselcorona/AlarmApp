@@ -1,16 +1,13 @@
 package com.example.acorona.alarmapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -83,8 +80,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         save.setOnClickListener(this);
 
         Bundle extras = getIntent().getExtras();
+
+        assert extras != null;
         Alarma a = extras.getParcelable(ALARM_KEY);
 
+        assert a != null;
         days = a.getDays();
         time = a.getTime();
         name = a.getName();
@@ -94,11 +94,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         Hour.setText(a.Date2String(time,"hh"));
         Minute.setText(a.Date2String(time, "mm"));
         amorpm = a.Date2String(time, "aa");
-        if(amorpm.equalsIgnoreCase("am")){
-            AMoPM=false;
-        }else{
-            AMoPM=true;
-        }
+        AMoPM = !amorpm.equalsIgnoreCase("am");
 
         setcolorday(monday, 0);
         setcolorday(tuesday, 1);
@@ -120,12 +116,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         switch (id) {
             case R.id.detail_activity_AM:
                 AMoPM=false;
-                AM.setTextColor(!AMoPM? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
+                AM.setTextColor(getResources().getColor(R.color.BLACK));
                 PM.setTextColor(AMoPM? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
                 break;
             case R.id.detail_activity_PM:
                 AMoPM=true;
-                AM.setTextColor(!AMoPM? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
+                AM.setTextColor(getResources().getColor(R.color.GRAY));
                 PM.setTextColor(AMoPM? getResources().getColor(R.color.BLACK):getResources().getColor(R.color.GRAY));
                 break;
             case R.id.detail_activity_monday:
@@ -197,6 +193,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private Date getDate(int hour, int minute, String amorpm){
         String resultingstring = String.valueOf(hour) + ":" + String.valueOf(minute) + " " + amorpm;
         Date date = null;

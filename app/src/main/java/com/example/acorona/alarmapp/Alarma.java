@@ -1,8 +1,8 @@
 package com.example.acorona.alarmapp;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,7 +17,7 @@ public class Alarma implements Parcelable {
 
 
 
-    public Alarma(String name, Date time, ArrayList<Boolean> days) {
+    Alarma(String name, Date time, ArrayList<Boolean> days) {
         this.name = name;
         this.time = time;
         this.days = days;
@@ -37,24 +37,22 @@ public class Alarma implements Parcelable {
 
 
     public String getTimeString() {
-        String time_string = Date2String(this.time, "hh:mm aa");
-        return time_string;
+        return Date2String(this.time, "hh:mm aa");
     }
 
     public String Date2String(Date date, String pattern) {
+        @SuppressLint("SimpleDateFormat")
         DateFormat df = new SimpleDateFormat(pattern);
         return df.format(date);
     }
 
 
     public String getDaysString() {
-        String days = "";
         if (everyDay(this.days)) {
-            days = "Everyday";
+            return "Everyday";
         } else {
-            days = perDay(this.days);
+            return perDay(this.days);
         }
-        return days;
     }
 
 
@@ -128,17 +126,14 @@ public class Alarma implements Parcelable {
         this.time = time;
     }
 
-    public void setDays(ArrayList<Boolean> days) {
-        this.days = days;
-    }
 
 
-    protected Alarma(Parcel in) {
+    private Alarma(Parcel in) {
         name = in.readString();
         long tmpTime = in.readLong();
         time = tmpTime != -1 ? new Date(tmpTime) : null;
         if (in.readByte() == 0x01) {
-            days = new ArrayList<Boolean>();
+            days = new ArrayList<>();
             in.readList(days, Boolean.class.getClassLoader());
         } else {
             days = null;
