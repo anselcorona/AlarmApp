@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetailActivity">
+    tools:context=".DetailActivity"
+    android:background="##dce5e0">
 
     <LinearLayout
         android:id="@+id/detail_activity_form"
@@ -68,6 +69,8 @@
                 android:hint="@string/example_name" />
         </LinearLayout>
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -108,8 +111,14 @@
                 android:text="@string/domingo" />
         </LinearLayout>
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/buttonBar"
+        android:background="@android:color/darker_gray"
+        />
     <LinearLayout
+        android:id="@+id/buttonBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

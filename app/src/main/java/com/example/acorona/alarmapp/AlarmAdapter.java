@@ -37,8 +37,8 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Alarma alarma = alarmaList.get(position);
 
-        holder.daysTextView.setText(alarma.getDays());
-        holder.timeTextView.setText(alarma.getTime());
+        holder.daysTextView.setText(alarma.getDaysString());
+        holder.timeTextView.setText(alarma.getTimeString());
         holder.nameTextView.setText(alarma.getName());
         holder.switchCompat.setChecked(alarma.getActive());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
